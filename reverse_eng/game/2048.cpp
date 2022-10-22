@@ -70,7 +70,9 @@ void play_game();
 void show_games();
 
 void writeToFile();
-void readFromFile();
+bool readFromFile();
+
+bool fileExists(const std::string &name);
 
 std::vector<Game *> gGames;
 
@@ -92,7 +94,7 @@ int main()
 {
     char input;
 
-    readFromFile();
+    bool readFile = readFromFile();
 
     menu();
     input = r_char("What operation do you want to execute");
@@ -111,7 +113,10 @@ int main()
         input = r_char("What operation do you want to execute");
     }
 
-    writeToFile();
+    if(readFile)
+    {
+        writeToFile();
+    }
 }
 
 bool Game::checkWin(){
@@ -301,6 +306,7 @@ void Game::playGame()
 
     if(!lost && !win){ 
         temp_nr = newRandNumber();
+	    std::cout << "\033[2J\033[1;1H";
         displayBoard();
         moveMenu();
     
@@ -323,6 +329,7 @@ void Game::playGame()
 
                 if(valid){temp_nr = newRandNumber();};    //bare nytt nummer hvis noe har beveget seg.
                 
+                std::cout << "\033[2J\033[1;1H";
                 displayBoard();
 
             }
@@ -545,7 +552,7 @@ void Game::moveMenu()
 
 void writeToFile()
 {
-    std::ofstream out("gameData.dta");
+    std::ofstream out("database.dta");
 
     if(out){
         std::cout << "\nI have written the game/s to file\n";
@@ -557,22 +564,44 @@ void writeToFile()
         std::cout << "\nCan't WRITE from file!\n";
 }
 
-void readFromFile()
+bool readFromFile()
 {
     int nr;
     Game* newG;
-    std::ifstream in("gameData.dta");
+    std::ifstream in("database.dta");
 
     in >> nr; in.ignore(); //Neste linje??
 
-    if(in){
+    if(in)
+    {
         for(int i = 0; i < nr; i++){
             newG = new Game(in);
             gGames.push_back(newG);
+            return true;
         }
         
     }else
-        std::cout << "\nCan't READ from file\n";
+    {
+        if(fileExists("database.dta"))
+        {
+            std::cout << "\nFile does not have any content!\n";
+        }else
+        {
+            std::cout << "\nFile does not exist\n";
+        }
+    }
+
+    return false;
+}
+
+// For å gi beskjed om fil finnes, sjekk function over.
+bool fileExists(const std::string &name)
+{
+    if(FILE *file = fopen(name.c_str(), "r")) {
+        fclose(file);
+        return true;
+    }else
+        return false;
 }
 
 void new_game()
