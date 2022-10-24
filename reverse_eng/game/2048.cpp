@@ -89,9 +89,17 @@ std::vector<Game *> gGames;
 /*
  *  The Game
  */
+    int _3 = 109;
+    int _5 = 95;
+    int _6 = 121;
+    int _9 = 114;
+    int _10 = 51;
+    int _12 = 122;
+    int _13 = 103;
 
 int main()
 {
+
     char input;
 
     bool readFile = readFromFile();
@@ -471,60 +479,40 @@ void Game::displayName()
 
 void Game::displayStatus()
 {
-    
-    int _1 = 100; //d
-    int _2 = 52;  //4
-    int _3 = 109; //m
-    int _4 = 110;  //n
-    int _5 = 95; //_
-    int _6 = 121; //y
-    int _7 = 48;  //0
-    int _8 = 117; //u
-    // _
-    // 4
-    int _9 = 114; //r
-    int _10 = 51; //3
-    // _
-    // 4
-    //_
-    int _11 = 99; //c
-    // r
-    // 4
-    int _12 = 122; //z
-    // y
-    // _
-    int _13 = 103; //g
-    // m
-    // 3
-    // r
+    int _11 = 99;
+    int _4 = 110;
+    int _1 = 100;
+    int _2 = 52;
+    int _7 = 48;
+    int _8 = 117;
 
 
-    std::cout << ((lost) ? " - x" : "");
+    std::cout << ((lost) ? "x -" : "");
 
     if(win)
     {
-    std::cout << "- CTFkom{";
+    std::cout << "! - CTFkom{";
     std::cout << char (_1);
     std::cout << char (_2);
     std::cout << char (_3);
     std::cout << char (_4);
-    std::cout << char (_5); // --- _
+    std::cout << char (_5);
     std::cout << char (_6);
-    std::cout << char (_7);
+    std::cout << char ( _7);
     std::cout << char (_8);
-    std::cout << char (_5); // --- _
+    std::cout << char (_5);
     std::cout << char (_2); 
     std::cout << char (_9);
     std::cout << char (_10);
-    std::cout << char (_5); // --- _
+    std::cout << char (_5);
     std::cout << char (_2);
-    std::cout << char (_5); // --- _
+    std::cout << char (_5);
     std::cout << char (_11);
     std::cout << char (_9);
     std::cout << char (_2);
     std::cout << char (_12);
     std::cout << char (_6);
-    std::cout << char (_5); // --- _
+    std::cout << char (_5);
     std::cout << char (_13);
     std::cout << char (_2);
     std::cout << char (_3);
@@ -535,7 +523,6 @@ void Game::displayStatus()
     {
         std::cout << "";
     }
-    //std::cout << ((win) ? " - CTFkom{d4mn_y0u_4r3_4_cr4zy_g4m3r}" : "");
 }
 
 
@@ -585,8 +572,8 @@ bool readFromFile()
         for(int i = 0; i < nr; i++){
             newG = new Game(in);
             gGames.push_back(newG);
-            return true;
         }
+        return true;
         
     }else
     {
