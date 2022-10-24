@@ -112,11 +112,10 @@ int main()
 
         input = r_char("What operation do you want to execute");
     }
+            std::cout << "\nokei\n";
 
-    if(readFile)
-    {
-        writeToFile();
-    }
+    writeToFile();
+
 }
 
 bool Game::checkWin(){
@@ -555,13 +554,22 @@ void writeToFile()
     std::ofstream out("database.dta");
 
     if(out){
-        std::cout << "\nI have written the game/s to file\n";
         out << gGames.size() << "\n";
-        for(int i = 0; i < gGames.size(); i++){
-            gGames[i]->toFile(out);
+
+        if(gGames.size() == 0)
+        {
+            std::cout << "\nNo data has been written!\n";
+            
+        }else
+        {
+            for(int i = 0; i < gGames.size(); i++){
+                gGames[i]->toFile(out);
+            }
+            std::cout << "\nData has been written to file!\n";
         }
+
     }else
-        std::cout << "\nCan't WRITE from file!\n";
+        std::cout << "\nCan't WRITE to file!\n";
 }
 
 bool readFromFile()
@@ -662,6 +670,7 @@ void menu()
     std::cout << "\n\tN - new game";
     std::cout << "\n\tS - show running games";
     std::cout << "\n\tP - play existing game";
+    std::cout << "\n\tQ - Quit and save game/s";
 }
 
 char r_char(std::string txt);
