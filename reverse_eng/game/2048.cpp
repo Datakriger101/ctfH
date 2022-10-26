@@ -569,24 +569,30 @@ bool readFromFile()
 
     if(in)
     {
+
+	if(nr == 0)
+	{
+		std::cout << "\nFile does not contain any games!\n";
+	}
+	
         for(int i = 0; i < nr; i++){
             newG = new Game(in);
             gGames.push_back(newG);
         }
-        return true;
+	return true; // Brukes ikke
         
     }else
     {
         if(fileExists("database.dta"))
         {
-            std::cout << "\nFile does not have any content!\n";
+		    std::cout << "File does not have any content!\n"; 
         }else
         {
             std::cout << "\nFile does not exist\n";
         }
     }
 
-    return false;
+    return false; // Brukes ikke
 }
 
 // For å gi beskjed om fil finnes, sjekk function over.
